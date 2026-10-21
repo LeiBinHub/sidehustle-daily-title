@@ -1,0 +1,14 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      # Flash attributes need a session. URL rewriting appends ;jsessionid to the
+      # post-fetch redirect, and that path misses "/" and renders index.html with no model.
+      tracking-modes: cookie
+
+spring:
+  thymeleaf:
+    cache: false
+
+app:
+  config: config.json

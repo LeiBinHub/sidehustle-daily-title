@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>需求分析</title>
+  <link rel="stylesheet" th:href="@{/style.css}"/>
+  <meta th:if="${status.running}" http-equiv="refresh" content="4"/>
+</head>
+<body>
+<header class="top">
+  <div>
+    <p class="kicker">DeepSeek · 只分析本地库里的帖子</p>
+    <h1>需求分析</h1>
+    <p class="sub">同一来源、同一条帖子分析过一次后不会再送模型。已归档 <strong th:text="${archived}">0</strong> 个需求，尚未分析 <strong th:text="${pending}">0</strong> 条。</p>
+  </div>
+  <div class="actions">
+    <a class="text-btn" th:href="@{/}">返回抓取</a>
+    <form method="post" th:action="@{/analysis}">
+      <button type="submit" th:disabled="${status.running}" th:text="${status.running} ? '分析中…' : '开始分析'">开始分析</button>
+    </form>
+  </div>
+</header>
+
+<p class="flash ok" th:if="${status.message != null and !status.message.isEmpty() and !status.running and !status.message.startsWith('分析失败') and !status.message.startsWith('没有读到')}" th:text="${status.message}"></p>
+<p class="flash bad" th:if="${status.message != null and (status.message.startsWith('分析失败') or status.message.startsWith('没有读到'))}" th:text="${status.message}"></p>
+<p class="flash" th:if="${status.running}">
+  <span th:text="${status.message}">正在分析</span>
+  <span th:if="${status.total > 0}" th:text="' · 已发现需求 ' + ${status.opportunities} + ' 条'"></span>
+</p>
+
+<nav class="filters">
+  <a th:href="@{/analysis}" th:classappend="${!repeatOnly} ? 'on'">
+    全部 <em th:text="${archived}">0</em>
+  </a>
+  <a th:href="@{/analysis(repeat=1)}" th:classappend="${repeatOnly} ? 'on'">
+    提到超过 1 次 <em th:text="${repeated}">0</em>
+  </a>
+</nav>
+
+<main>
+  <section class="empty" th:if="${demands.isEmpty() and !status.running and !repeatOnly}">
+    <p>还没有整理出的需求。点右上角「开始分析」。已分析过、判定为不是商机的帖子不会出现在这里。</p>
+  </section>
+  <section class="empty" th:if="${demands.isEmpty() and !status.running and repeatOnly}">
+    <p>还没有被提到超过 1 次的需求。</p>
+  </section>
+
+  <section class="demand" th:each="demand, stat : ${demands}">
+    <h2>
+      <span th:text="${stat.count + '. ' + demand.painPoint}">痛点</span>
+    </h2>
+    <div class="meta">
+      <span class="tag score" th:text="'评分 ' + ${demand.topScore} + '/5'">5/5</span>
+      <span th:text="'提到 ' + ${demand.mentions} + ' 次'"></span>
+      <code th:text="${demand.painKey}">pain-key</code>
+    </div>
+    <p class="excerpt" th:text="${demand.summaryZh}"></p>
+    <ul class="facts">
+      <li th:if="${demand.audience != null and !demand.audience.isEmpty()}"><b>谁在痛</b><span th:text="${demand.audience}"></span></li>
+      <li th:if="${demand.payingEvidence != null and !demand.payingEvidence.isEmpty()}"><b>付费迹象</b><span th:text="${demand.payingEvidence}"></span></li>
+      <li th:if="${demand.existingTools != null and !demand.existingTools.isEmpty()}"><b>现有做法</b><span th:text="${demand.existingTools}"></span></li>
+    </ul>
+    <ul class="sources">
+      <li th:each="row : ${demand.posts}">
+        <span class="tag" th:text="${row.opp.source}" th:classappend="${row.opp.source}">src</span>
+        <a th:href="${row.url}" th:text="${row.title}" target="_blank" rel="noopener">title</a>
+      </li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>

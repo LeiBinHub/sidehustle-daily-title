@@ -1,0 +1,12 @@
+target/
+*.log
+.env
+.idea/
+*.iml
+.vscode/
+.DS_Store
+data/*.db
+data/*.db-wal
+data/*.db-shm
+*.db-wal
+*.db-shm

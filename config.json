@@ -1,0 +1,138 @@
+{
+  "dbPath": "data/sidehustle.db",
+  "reportDir": "reports",
+  "lookbackDays": 7,
+  "recurrenceWindowDays": 14,
+  "recurrenceThreshold": 3,
+  "maxPostsToClassifyPerRun": 300,
+  "minScoreToReport": 3,
+
+  "reddit": {
+    "enabled": true,
+    "timeFilter": "week",
+    "limitPerQuery": 50,
+    "includeNewListing": true,
+    "requestIntervalMs": 700,
+    "subreddits": [
+      "SaaS", "microsaas", "indiehackers", "Entrepreneur", "smallbusiness", "sidehustle",
+      "FulfillmentByAmazon", "Etsy", "shopify", "ecommerce", "dropship",
+      "NewTubers", "podcasting", "freelance", "Upwork", "airbnb_hosts", "Bookkeeping", "restaurantowners"
+    ],
+    "keywords": [
+      "is there a tool",
+      "any tool for",
+      "I wish there was",
+      "I'd pay for",
+      "looking for alternative to",
+      "frustrated with",
+      "hate using",
+      "I spend hours",
+      "manually",
+      "spreadsheet",
+      "copy paste",
+      "too expensive",
+      "does anyone know a tool",
+      "recommend a tool",
+      "automate this",
+      "there has to be a better way",
+      "what do you use for",
+      "how do you handle",
+      "need an app to",
+      "sucks because"
+    ]
+  },
+
+  "hackerNews": {
+    "enabled": true,
+    "hitsPerQuery": 50,
+    "keywords": [
+      "is there a tool",
+      "Ask HN: what do you use for",
+      "I wish there was",
+      "looking for alternative",
+      "frustrated with",
+      "manually",
+      "spreadsheet",
+      "I'd pay for",
+      "any tool for",
+      "recommend a tool"
+    ]
+  },
+
+  "v2ex": {
+    "enabled": true,
+    "pagesPerNode": 2,
+    "nodes": ["qna", "ideas", "create", "programmer"],
+    "keywords": [
+      "有没有什么工具",
+      "求推荐",
+      "有没有软件",
+      "太麻烦",
+      "手动",
+      "怎么批量",
+      "有什么办法",
+      "有没有办法",
+      "付费也可以",
+      "愿意付费",
+      "表格",
+      "重复"
+    ]
+  },
+
+  "freelancer": {
+    "enabled": true,
+    "limitPerQuery": 20,
+    "keywords": [
+      "manually",
+      "data entry",
+      "export",
+      "scrape",
+      "spreadsheet",
+      "excel",
+      "automate"
+    ]
+  },
+
+  "github": {
+    "enabled": true,
+    "perPage": 20,
+    "queries": [
+      "\"I wish there was\"",
+      "\"is there a tool\"",
+      "\"feature request\" spreadsheet",
+      "label:\"enhancement\" \"manually\""
+    ]
+  },
+
+  "stackexchange": {
+    "enabled": true,
+    "pageSize": 30,
+    "sites": [
+      { "site": "softwarerecs", "keywords": [] },
+      { "site": "webapps", "keywords": ["alternative to", "automate", "export spreadsheet"] },
+      { "site": "superuser", "keywords": ["batch", "automate", "spreadsheet"] },
+      { "site": "stackoverflow", "keywords": ["\"is there a tool\"", "\"looking for a library\"", "automate spreadsheet"] }
+    ]
+  },
+
+  "bluesky": {
+    "enabled": true,
+    "limitPerQuery": 25,
+    "keywords": [
+      "looking for a tool",
+      "is there an app",
+      "I wish there was an app",
+      "alternative to",
+      "automate spreadsheet",
+      "I'd pay for a tool"
+    ]
+  },
+
+  "llm": {
+    "baseUrl": "https://api.deepseek.com",
+    "model": "deepseek-chat",
+    "temperature": 0.1,
+    "maxBodyChars": 3000,
+    "requestIntervalMs": 200
+  }
+}

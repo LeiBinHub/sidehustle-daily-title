@@ -1,0 +1,19 @@
+services:
+  app:
+    build:
+      context: .
+      args:
+        JAVA_IMAGE: ${JAVA_IMAGE:-eclipse-temurin:21-jre}
+    ports:
+      - "127.0.0.1:8080:8080"
+    env_file:
+      - .env
+    environment:
+      SERVER_ADDRESS: "0.0.0.0"
+      TZ: Asia/Shanghai
+    volumes:
+      - ./data:/app/data
+      - ./reports:/app/reports
+      - ./config.json:/app/config.json:ro
+      - ./.env:/app/.env:ro
+    restart: unless-stopped

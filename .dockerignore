@@ -1,0 +1,12 @@
+target/*
+!target/sidehustle-daily-title.jar
+.git/
+.github/
+.idea/
+data/
+reports/
+.env
+*.iml
+.DS_Store
+README.md
+src/
